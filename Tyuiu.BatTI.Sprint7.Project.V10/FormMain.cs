@@ -68,7 +68,7 @@ namespace Project.V10
         {
             // 1. ЛЕВОЕ МЕНЮ
             panelMenu_BTI = new Panel { Dock = DockStyle.Left, Width = 200, BackColor = Color.FromArgb(33, 37, 41) };
-            Label logo = new Label { Text = "SKLAD\nSYSTEM", ForeColor = Color.White, Font = new Font("Segoe UI", 18, FontStyle.Bold), Dock = DockStyle.Top, Height = 100, TextAlign = ContentAlignment.MiddleCenter };
+            Label logo = new Label { ForeColor = Color.White, Font = new Font("Segoe UI", 18, FontStyle.Bold), Dock = DockStyle.Top, Height = 100, TextAlign = ContentAlignment.MiddleCenter };
 
             panelMenu_BTI.Controls.Add(CreateMenuBtn("Выход", 280, (s, e) => Application.Exit()));
             panelMenu_BTI.Controls.Add(CreateMenuBtn("О программе", 220, (s, e) =>
@@ -118,11 +118,11 @@ namespace Project.V10
                 AutoSize = true
             };
 
-            // 2. Поле ввода
+            // Поле ввода
             txtSearch_BTI = new TextBox { Location = new Point(10, 32), Width = 250 };
             txtSearch_BTI.TextChanged += (s, e) => ApplyFilters();
 
-            // 3. Мелкий текст под полем ввода
+            // Мелкий текст под полем поиска
             Label lblSearchHint = new Label
             {
                 Text = "Артикул / Наименование / Поставщик / Дата",
@@ -132,7 +132,7 @@ namespace Project.V10
                 AutoSize = true
             };
 
-            // 4. Фильтр по категории
+            // Фильтр по категории
             Label lblCatFilter = new Label
             {
                 Text = "Фильтр по категории:",
@@ -203,8 +203,6 @@ namespace Project.V10
 
             gridData_BTI.ColumnHeaderMouseClick += GridData_BTI_ColumnHeaderMouseClick;
 
-            gridData_BTI.CellFormatting += GridData_BTI_CellFormatting;
-
             contextMenuGrid_BTI = new ContextMenuStrip();
             contextMenuGrid_BTI.Items.Add("Продать 1 шт.", null, (s, e) => ActionSellOne());
             contextMenuGrid_BTI.Items.Add("Удалить", null, (s, e) => ActionDelete());
@@ -215,18 +213,18 @@ namespace Project.V10
             tabPageData_BTI.Controls.Add(panelFilter_BTI);
 
 
-            // --- ВКЛАДКА 2: ГРАФИКИ ---
+            // --- ВКЛАДКА ГРАФИКИ ---
             layoutCharts_BTI = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, RowCount = 1 };
             layoutCharts_BTI.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60));
             layoutCharts_BTI.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40));
 
-            // ГРАФИК 1 (Столбцы)
+            // ГРАФИК (Столбцы)
             chartBar_BTI = new Chart { Dock = DockStyle.Fill };
             chartBar_BTI.ChartAreas.Add(new ChartArea("A1"));
             chartBar_BTI.Legends.Add(new Legend("L1"));
             chartBar_BTI.Series.Add(new Series("S1") { ChartType = SeriesChartType.Column });
 
-            // ГРАФИК 2 (Круг)
+            // ГРАФИК (Круг)
             chartPie_BTI = new Chart { Dock = DockStyle.Fill };
             chartPie_BTI.ChartAreas.Add(new ChartArea("A2"));
             var legendPie = new Legend("LegendPie")
@@ -280,7 +278,7 @@ namespace Project.V10
             string q = txtSearch_BTI.Text.Trim().ToLower();
             string cat = cmbCategoryFilter_BTI.SelectedItem?.ToString() ?? "Все";
 
-            // 2. Фильтрация
+            // Фильтрация
             currentViewList_BTI = dataList_BTI.Where(x =>
                 (
                     (x.Name != null && x.Name.ToLower().Contains(q)) ||
@@ -412,21 +410,6 @@ namespace Project.V10
             }
         }
 
-        private void GridData_BTI_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (gridData_BTI.Columns[e.ColumnIndex].Name == "Quantity")
-            {
-                if (e.Value != null && int.TryParse(e.Value.ToString(), out int qty))
-                {
-                    if (qty < 10)
-                    {
-                        gridData_BTI.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.MistyRose;
-                        gridData_BTI.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = Color.Red;
-                    }
-                }
-            }
-        }
-
         private void GridData_BTI_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             string colName = gridData_BTI.Columns[e.ColumnIndex].DataPropertyName;
@@ -442,7 +425,7 @@ namespace Project.V10
 
         private void UpdateCharts()
         {
-            // --- ГРАФИК 1: ГИСТОГРАММА ---
+            // ГИСТОГРАММА ---
             chartBar_BTI.Series[0].Points.Clear();
             chartBar_BTI.Palette = ChartColorPalette.SeaGreen;
             chartBar_BTI.Titles.Clear();
@@ -466,7 +449,7 @@ namespace Project.V10
                 chartBar_BTI.Series[0].Points.AddXY(i.Name, i.Price * i.Quantity);
             }
 
-            // --- ГРАФИК 2: КРУГОВАЯ ---
+            // --- ГРАФИК: КРУГОВАЯ ---
             chartPie_BTI.Series[0].Points.Clear();
             chartPie_BTI.Palette = ChartColorPalette.BrightPastel;
             chartPie_BTI.Titles.Clear();

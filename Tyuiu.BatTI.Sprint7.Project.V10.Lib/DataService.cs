@@ -10,7 +10,7 @@ namespace Tyuiu.BatTI.Sprint7.Project.V10.Lib
     {
         public string Code { get; set; }          // Артикул
         public string Name { get; set; }          // Название
-        public string Category { get; set; }      // НОВОЕ: Категория товара
+        public string Category { get; set; }      // Категория товара
         public int Quantity { get; set; }
         public decimal Price { get; set; }
         public string Description { get; set; }
