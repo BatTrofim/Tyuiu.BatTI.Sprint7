@@ -10,7 +10,7 @@ using Tyuiu.BatTI.Sprint7.Project.V10.Lib;
 
 namespace Project.V10
 {
-    public partial class Form1 : Form
+    public partial class FormMain : Form
     {
         // --- КОМПОНЕНТЫ UI ---
         private TabControl tabControlMain_BTI;
@@ -31,7 +31,7 @@ namespace Project.V10
         private TextBox txtSearch_BTI;
         private ComboBox cmbCategoryFilter_BTI;
 
-        // --- НОВОЕ: Блок детальной статистики ---
+        // Детальная статистика
         private GroupBox grpStats_BTI;
         private Label lblStatCount_BTI, lblStatSum_BTI, lblStatAvg_BTI, lblStatMin_BTI, lblStatMax_BTI;
 
@@ -50,7 +50,7 @@ namespace Project.V10
         // Переменная для сортировки
         private bool isAscending = true;
 
-        public Form1()
+        public FormMain()
         {
             this.Text = "Склад | Sprint 7 | Бат.Т.И.";
             this.Size = new Size(1350, 800);
