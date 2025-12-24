@@ -394,11 +394,12 @@ namespace Project.V10
         }
 
 
-        private void GridSelectionChanged()
+        private void GridSelectionChanged()        // Изменение выбора строки
         {
             if (gridData_BTI.SelectedRows.Count > 0)
             {
-                var item = (ItemModel)gridData_BTI.SelectedRows[0].DataBoundItem;
+                // Ее значения
+                var item = (ItemModel)gridData_BTI.SelectedRows[0].DataBoundItem; 
                 txtCode_BTI.Text = item.Code;
                 txtName_BTI.Text = item.Name;
                 cmbCategoryInput_BTI.Text = item.Category;
